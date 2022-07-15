@@ -159,6 +159,9 @@ You can install new plugins here: [plugins](https://github.com/LunarVim/nvim-bas
 - [DAPInstall.nvim](https://github.com/ravenxrz/DAPInstall.nvim)
 
 ---
+# Install full LunarVim
+```bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)```
+
 
 > The computing scientist's main challenge is not to get confused by the complexities of his own making. 
 
