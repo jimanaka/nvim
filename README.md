@@ -24,6 +24,12 @@ make CMAKE_BUILD_TYPE=Release
 sudo make install
 ```
 
+### if on ubuntu/wsl
+
+```sh
+sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
+```
+
 Run `nvim` and wait for the plugins to be installed 
 
 **NOTE** (You will notice treesitter pulling in a bunch of parsers the next time you open Neovim) 
