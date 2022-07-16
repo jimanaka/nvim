@@ -81,8 +81,11 @@ We will also need `ripgrep` for Telescope to work:
 ## Fonts
 
 I recommend using the following repo to get a "Nerd Font" (Font that supports icons)
+Fonts are placed in ~/.local/share/fonts/NerdFonts/
 
-[getnf](https://github.com/ronniedroid/getnf)
+```sh
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip
+```
 
 ## Configuration
 
@@ -95,10 +98,13 @@ First Enter:
 ```
 :LspInstallInfo
 ```
-
 and press `i` on the Language Server you wish to install
 
-Next you will need to add the server to this list: [servers](https://github.com/LunarVim/nvim-basic-ide/blob/8b9ec3bffe8c8577042baf07c75408532a733fea/lua/user/lsp/lsp-installer.lua#L6)
+### Rust support
+
+```sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
 
 ### Formatters and linters
 
@@ -153,6 +159,9 @@ You can install new plugins here: [plugins](https://github.com/LunarVim/nvim-bas
 ---
 # Install full LunarVim
 ```bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)```
+## Add executable to path
+
+ensure that ~/.local/bin is in path
 
 
 > The computing scientist's main challenge is not to get confused by the complexities of his own making. 
