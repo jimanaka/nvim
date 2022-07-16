@@ -24,14 +24,6 @@ make CMAKE_BUILD_TYPE=Release
 sudo make install
 ```
 
-## Install the config
-
-Make sure to remove or move your current `nvim` directory
-
-```sh
-git clone https://github.com/LunarVim/nvim-basic-ide.git ~/.config/nvim
-```
-
 Run `nvim` and wait for the plugins to be installed 
 
 **NOTE** (You will notice treesitter pulling in a bunch of parsers the next time you open Neovim) 
@@ -54,11 +46,11 @@ First we'll fix copy/paste
 
 - On mac `pbcopy` should be builtin
 
-- On Ubuntu
+- On Arch (May need to change pacman to yay if its in AUR)
 
   ```sh
-  sudo apt install xsel # for X11
-  sudo apt install wl-clipboard # for wayland
+  sudo pacman -S xsel # for X11
+  sudo pacman -S wl-clipboard # for wayland
   ```
 
 Next we need to install python support (node is optional)
@@ -80,7 +72,7 @@ We will also need `ripgrep` for Telescope to work:
 - Ripgrep
 
   ```sh
-  sudo apt install ripgrep
+  sudo pacman -S ripgrep
   ```
 ---
 
