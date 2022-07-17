@@ -24,12 +24,10 @@ make CMAKE_BUILD_TYPE=Release
 sudo make install
 ```
 
-## Install the config
-
-Make sure to remove or move your current `nvim` directory
+### if on ubuntu/wsl
 
 ```sh
-git clone https://github.com/LunarVim/nvim-basic-ide.git ~/.config/nvim
+sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
 ```
 
 Run `nvim` and wait for the plugins to be installed 
@@ -54,11 +52,11 @@ First we'll fix copy/paste
 
 - On mac `pbcopy` should be builtin
 
-- On Ubuntu
+- On Arch (May need to change pacman to yay if its in AUR)
 
   ```sh
-  sudo apt install xsel # for X11
-  sudo apt install wl-clipboard # for wayland
+  sudo pacman -S xsel # for X11
+  sudo pacman -S wl-clipboard # for wayland
   ```
 
 Next we need to install python support (node is optional)
@@ -80,7 +78,7 @@ We will also need `ripgrep` for Telescope to work:
 - Ripgrep
 
   ```sh
-  sudo apt install ripgrep
+  sudo pacman -S ripgrep
   ```
 ---
 
@@ -89,8 +87,11 @@ We will also need `ripgrep` for Telescope to work:
 ## Fonts
 
 I recommend using the following repo to get a "Nerd Font" (Font that supports icons)
+Fonts are placed in ~/.local/share/fonts/NerdFonts/
 
-[getnf](https://github.com/ronniedroid/getnf)
+```sh
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip
+```
 
 ## Configuration
 
@@ -103,10 +104,13 @@ First Enter:
 ```
 :LspInstallInfo
 ```
-
 and press `i` on the Language Server you wish to install
 
-Next you will need to add the server to this list: [servers](https://github.com/LunarVim/nvim-basic-ide/blob/8b9ec3bffe8c8577042baf07c75408532a733fea/lua/user/lsp/lsp-installer.lua#L6)
+### Rust support
+
+```sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
 
 ### Formatters and linters
 
@@ -161,6 +165,9 @@ You can install new plugins here: [plugins](https://github.com/LunarVim/nvim-bas
 ---
 # Install full LunarVim
 ```bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)```
+## Add executable to path
+
+ensure that ~/.local/bin is in path
 
 
 > The computing scientist's main challenge is not to get confused by the complexities of his own making. 
