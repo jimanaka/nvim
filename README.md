@@ -80,6 +80,18 @@ We will also need `ripgrep` for Telescope to work:
   ```sh
   sudo pacman -S ripgrep
   ```
+  
+If you run into package-lock.json issues with treesitter:
+- Open config file
+```sh
+vim ~/.config/lua/user/treesitter.lua
+```
+
+- Ignore erroring parser
+```sh
+ignore_install = { "<parser giving the error>" }, -- List of parsers to ignore installing
+```
+
 ---
 
 **NOTE** make sure you have [node](https://nodejs.org/en/) installed, I recommend a node manager like [fnm](https://github.com/Schniz/fnm).
