@@ -70,6 +70,10 @@ Next we need to install python support (node is optional)
 - Neovim node support
 
   ```sh
+  sudo pacman -S nodejs npm
+  mkdir ~/.npm-global
+  npm config set prefix '~/.npm-global'
+  export PATH=~/.npm-global/bin:$PATH
   npm i -g neovim
   ```
 
