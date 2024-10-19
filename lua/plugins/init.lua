@@ -1,4 +1,11 @@
+local overrides = require("configs.overrides")
+
 return {
+  {
+  "vhyrro/luarocks.nvim",
+  priority = 1000, -- Very high priority is required, luarocks.nvim should run as the first plugin in your config.
+  config = true,
+  },
   {
     "stevearc/conform.nvim",
     -- event = 'BufWritePre', -- uncomment for format on save
@@ -21,5 +28,49 @@ return {
   --      "html", "css"
   -- 		},
   -- 	},
-  -- },
+  -- }
+
+	{
+		"williamboman/mason.nvim",
+		opts = overrides.mason,
+	},
+
+	{
+		"nvim-treesitter/nvim-treesitter",
+		opts = overrides.treesitter,
+	},
+
+	{
+		"nvim-tree/nvim-tree.lua",
+		opts = overrides.nvimtree,
+	},
+
+	{
+		"christoomey/vim-tmux-navigator",
+		lazy = false,
+	},
+
+	{
+		"rust-lang/rust.vim",
+		ft = "rust",
+		init = function()
+			vim.g.rustmft_autosave = 1
+		end,
+	},
+
+	{
+		"simrat39/rust-tools.nvim",
+		ft = "rust",
+		dependencies = "neovim/nvim-lspconfig",
+		opts = function()
+			return require("configs.rust-tools")
+		end,
+		config = function(_, opts)
+			require("rust-tools").setup(opts)
+		end,
+	},
+
+	{
+		"mfussenegger/nvim-dap",
+	},
 }
