@@ -33,6 +33,14 @@ return {
   -- 	},
   -- }
 
+    {
+        'numToStr/Comment.nvim',
+        opts = {
+            -- add any options here
+        }
+    },
+
+
 	{
 		"williamboman/mason.nvim",
 		opts = overrides.mason,

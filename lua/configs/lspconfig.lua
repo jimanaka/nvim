@@ -1,67 +1,103 @@
 require("nvchad.configs.lspconfig").defaults()
 
--- local lspconfig = require "lspconfig"
+local lspconfig = require "lspconfig"
+local nvlsp = require "nvchad.configs.lspconfig"
 
--- EXAMPLE
--- local servers = { "html", "cssls", "clangd", "pylsp", "bashls"}
--- local nvlsp = require "nvchad.configs.lspconfig"
+-- Default simple servers
+local servers = { "html", "cssls", "clangd", "pyright", "bashls" }
 
--- lsps with default config
--- for _, lsp in ipairs(servers) do
---   lspconfig[lsp].setup {
---     on_attach = nvlsp.on_attach,
---     on_init = nvlsp.on_init,
---     capabilities = nvlsp.capabilities,
---   }
--- end
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    on_attach = nvlsp.on_attach,
+    on_init = nvlsp.on_init,
+    capabilities = nvlsp.capabilities,
+  }
+end
 
--- lspconfig.pylsp.setup({
--- 	settings = {
--- 		pylsp = {
--- 			plugins = {
--- 				pycodestyle = {
--- 					ignore = { "E501" },
--- 				},
--- 			},
--- 		},
--- 	},
--- })
+-- Lazy load rust_analyzer
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "rust",
+  callback = function()
+    local util = require("lspconfig.util")
+    lspconfig.rust_analyzer.setup {
+      filetypes = { "rust" },
+      root_dir = function(fname)
+        return util.root_pattern("Cargo.toml")(fname)
+            or util.find_git_ancestor(fname)
+            or vim.loop.cwd()
+      end,
+      on_attach = nvlsp.on_attach,
+      on_init = nvlsp.on_init,
+      capabilities = nvlsp.capabilities,
+      settings = {
+        ["rust-analyzer"] = {
+          cargo = { allFeatures = true },
+        },
+      },
+    }
+  end,
+})
 
--- lspconfig.tailwindcss.setup({
--- 	filetypes = { "javascript", "typescript", "html", "css" },
--- })
---
--- lspconfig.ltex.setup({
--- 	on_attach = function(client, bufnr)
--- 		on_attach(client, bufnr)
--- 		require("ltex-utils").on_attach(bufnr)
--- 	end,
--- })
+-- Lazy load tsserver (renamed from ts_ls → correct: tsserver)
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "typescript", "javascript", "typescriptreact", "javascriptreact" },
+  callback = function()
+    lspconfig.tsserver.setup {
+      on_attach = nvlsp.on_attach,
+      on_init = nvlsp.on_init,
+      capabilities = nvlsp.capabilities,
+    }
+  end,
+})
 
--- require("tailwind-sorter").setup({
--- 	on_save_enabled = false, -- If `true`, automatically enables on save sorting.
--- 	on_save_pattern = { "*.html", "*.js", "*.jsx", "*.tsx", "*.twig", "*.hbs", "*.php", "*.heex", "*.astro" }, -- The file patterns to watch and sort.
--- 	node_path = "node",
--- })
+-- Lazy load tailwindcss
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "javascript", "typescript", "html", "css" },
+  callback = function()
+    lspconfig.tailwindcss.setup {
+      filetypes = { "javascript", "typescript", "html", "css" },
+      on_attach = nvlsp.on_attach,
+      on_init = nvlsp.on_init,
+      capabilities = nvlsp.capabilities,
+    }
+  end,
+})
 
--- lspconfig.rust_analyzer.setup {
---   filetypes = { "rust" },
---   root_dir = util.root_pattern("Cargo.toml"),
---   settings = {
---     ['rust-analyzer'] = {
---       cargo = {
---         allFeatures = true
---       }
+-- Lazy load pylsp with custom settings
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "python",
+--   callback = function()
+--     lspconfig.pylsp.setup {
+--       on_attach = nvlsp.on_attach,
+--       on_init = nvlsp.on_init,
+--       capabilities = nvlsp.capabilities,
+--       settings = {
+--         pylsp = {
+--           plugins = {
+--             pycodestyle = {
+--               ignore = { "E501" },
+--             },
+--           },
+--         },
+--       },
 --     }
---   }
--- }
+--   end,
+-- })
 
--- configuring single server, example: typescript
--- lspconfig.ts_ls.setup {
---   on_attach = nvlsp.on_attach,
---   on_init = nvlsp.on_init,
---   capabilities = nvlsp.capabilities,
--- }
+-- Lazy load ltex
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "tex", "text" },
+  callback = function()
+    lspconfig.ltex.setup {
+      on_attach = function(client, bufnr)
+        nvlsp.on_attach(client, bufnr)
+        require("ltex-utils").on_attach(bufnr)
+      end,
+      on_init = nvlsp.on_init,
+      capabilities = nvlsp.capabilities,
+    }
+  end,
+})
 
-local servers = { "html", "cssls" }
+-- Optional: Enable LSP system in Neovim 0.10+
 vim.lsp.enable(servers)
