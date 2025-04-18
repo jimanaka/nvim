@@ -48,6 +48,12 @@ o.updatetime = 250
 -- when cursor reaches end/beginning of line
 opt.whichwrap:append "<>[]hl"
 
+-- set color column
+o.colorcolumn = "80"
+
+-- scrolloff
+o.scrolloff = 3
+
 -- g.mapleader = " "
 
 -- disable some default providers
