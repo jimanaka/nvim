@@ -5,6 +5,7 @@ local options = {
     python = { "autopep8" },
     rust = { "rustfmt" },
     markdown = { "cbfmt" },
+    c = {"clang-format"}
     -- css = { "prettier" },
     -- html = { "prettier" },
   },

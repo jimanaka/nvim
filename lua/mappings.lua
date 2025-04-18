@@ -20,6 +20,10 @@ map("n", "<leader>fm", function()
 require("conform").format()
 end, { desc = "formatting" })
 
+map("n", "<leader>fl", function()
+require("lint").try_lint()
+end, {desc = "linting" })
+
 -- -- tmux navigation
 map("n", "<C-h>", "<cmd> TmuxNavigateLeft<CR>", { desc = "Window left" })
 map("n", "<C-l>", "<cmd> TmuxNavigateRight<CR>", { desc = "Window right" })
