@@ -101,3 +101,5 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Optional: Enable LSP system in Neovim 0.10+
 vim.lsp.enable(servers)
+
+-- read :h vim.lsp.config for changing options of lsp servers 
