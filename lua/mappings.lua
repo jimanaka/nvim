@@ -4,7 +4,7 @@ require "nvchad.mappings"
 
 local map = vim.keymap.set
 
-map("n", ";", ":", { desc = "CMD enter command mode" })
+-- map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "kj", "<ESC>")
 
 -- -- -- allow movement through wrapped lines
@@ -94,6 +94,7 @@ map("n", "<leader>lf", vim.diagnostic.open_float, { desc = "Lsp floating diagnos
 map("n", "[d", vim.diagnostic.goto_prev, { desc = "Lsp prev diagnostic" })
 map("n", "]d", vim.diagnostic.goto_next, { desc = "Lsp next diagnostic" })
 map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Lsp diagnostic loclist" })
+map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions" })
 
 -- tabufline
 map("n", "<leader>b", "<cmd>enew<CR>", { desc = "Buffer New" })

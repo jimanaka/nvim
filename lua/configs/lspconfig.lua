@@ -4,7 +4,7 @@ local lspconfig = require "lspconfig"
 local nvlsp = require "nvchad.configs.lspconfig"
 
 -- Default simple servers
-local servers = { "html", "cssls", "clangd", "pyright", "bashls" }
+local servers = { "html", "cssls", "clangd", "pyright", "bashls", "rust_analyzer" }
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
@@ -15,28 +15,28 @@ for _, lsp in ipairs(servers) do
 end
 
 -- Lazy load rust_analyzer
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "rust",
-  callback = function()
-    local util = require("lspconfig.util")
-    lspconfig.rust_analyzer.setup {
-      filetypes = { "rust" },
-      root_dir = function(fname)
-        return util.root_pattern("Cargo.toml")(fname)
-            or util.find_git_ancestor(fname)
-            or vim.loop.cwd()
-      end,
-      on_attach = nvlsp.on_attach,
-      on_init = nvlsp.on_init,
-      capabilities = nvlsp.capabilities,
-      settings = {
-        ["rust-analyzer"] = {
-          cargo = { allFeatures = true },
-        },
-      },
-    }
-  end,
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "rust",
+--   callback = function()
+--     local util = require("lspconfig.util")
+--     lspconfig.rust_analyzer.setup {
+--       filetypes = { "rust" },
+--       root_dir = function(fname)
+--         return util.root_pattern("Cargo.toml")(fname)
+--             or util.find_git_ancestor(fname)
+--             or vim.loop.cwd()
+--       end,
+--       on_attach = nvlsp.on_attach,
+--       on_init = nvlsp.on_init,
+--       capabilities = nvlsp.capabilities,
+--       settings = {
+--         ["rust-analyzer"] = {
+--           cargo = { allFeatures = true },
+--         },
+--       },
+--     }
+--   end,
+-- })
 
 -- Lazy load tsserver (renamed from ts_ls → correct: tsserver)
 vim.api.nvim_create_autocmd("FileType", {
