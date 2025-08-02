@@ -43,7 +43,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 --       tabufline = {
 --          lazyload = false
 --      }
---}
+-- }
 
 
 return M
