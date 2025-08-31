@@ -33,29 +33,19 @@ return {
   -- 	},
   -- }
 
-    {
-        'numToStr/Comment.nvim',
-        opts = {
-            -- add any options here
-        }
-    },
+  {
+      'numToStr/Comment.nvim',
+      opts = {
+          -- add any options here
+      }
+  },
 
-    {
-      "mfussenegger/nvim-lint",
-      config = function()
-        require "configs.lint"
-      end,
-    },
-
-	{
-		"williamboman/mason.nvim",
-		opts = overrides.mason,
-	},
-
-	{
-		"nvim-treesitter/nvim-treesitter",
-		opts = overrides.treesitter,
-	},
+  {
+    "mfussenegger/nvim-lint",
+    config = function()
+      require "configs.lint"
+    end,
+  },
 
 	{
 		"nvim-tree/nvim-tree.lua",
